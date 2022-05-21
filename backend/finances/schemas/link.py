@@ -6,17 +6,10 @@ from pydantic import Extra, UUID4, StrictBool, StrictStr
 from finances.shared.schemas import BaseSchema
 
 
-class BaseLink(BaseSchema):
+class LinkResponse(BaseSchema):
+    id: UUID4
     fintoc_id: StrictStr
     fintoc_token: StrictStr
-
-
-class LinkCreation(BaseLink):
-    ...
-
-
-class LinkResponse(BaseLink):
-    id: UUID4
     refreshed: StrictBool
 
 
@@ -24,6 +17,16 @@ class LinkResponse(BaseLink):
 class BaseWebhookSchema(BaseSchema):
     class Config:
         extra = Extra.ignore
+
+
+class LinkCreatedWebhookData(BaseWebhookSchema):
+    id: StrictStr
+    link_token: StrictStr
+
+
+class LinkCreatedWebhook(BaseWebhookSchema):
+    type: StrictStr
+    data: LinkCreatedWebhookData
 
 
 class LinkRefreshedWebhookData(BaseWebhookSchema):
