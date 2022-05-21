@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:14.2
+    volumes:
+      - data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust  # Insecure connection, only for local
+    networks:
+      - backend
+  web:
+    init: true
+    build: .
+    command: uvicorn finances.main:app --host 0.0.0.0 --reload
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://postgres@db:5432/postgres
+      CORS_ALLOWED_ORIGINS: http://localhost:3000
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    networks:
+      - backend
+  localtunnel:
+    image: node:18.2-alpine
+    command: npx localtunnel --local-host web --port 8000
+    depends_on:
+      - web
+    networks:
+      - backend
+
+volumes:
+  data:
+    driver: local
+
+networks:
+  backend:
