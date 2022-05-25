@@ -11,5 +11,4 @@ class AccountRefreshedWebhookData(BaseWebhookSchema):
 class AccountRefreshedWebhook(BaseWebhookSchema):
     id: StrictStr
     type: StrictStr
-    mode: StrictStr
     data: AccountRefreshedWebhookData
