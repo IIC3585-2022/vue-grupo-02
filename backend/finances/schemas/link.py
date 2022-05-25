@@ -14,8 +14,11 @@ class LinkResponse(BaseSchema):
 
 # Webhook
 class LinkCreatedWebhookData(BaseWebhookSchema):
+    id: StrictStr
     link_token: StrictStr
 
 
 class LinkCreatedWebhook(BaseWebhookSchema):
+    type: StrictStr
+    mode: StrictStr
     data: LinkCreatedWebhookData
