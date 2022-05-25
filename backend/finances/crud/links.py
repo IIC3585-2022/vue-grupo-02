@@ -37,6 +37,7 @@ def refreshed(
     link: LinkModel,
 ) -> LinkModel:
     link.refreshed = True
+    db.add(link)
     db.commit()
     db.refresh(link)
     return link
