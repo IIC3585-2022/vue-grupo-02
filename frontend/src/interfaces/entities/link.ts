@@ -6,7 +6,7 @@ import type { Nullable } from '@/interfaces/common';
 export interface BackendLink {
   id: string
   fintocId: string
-  refreshed: boolean
+  refreshedAccounts: Array<string>
 }
 
 export interface Link {

@@ -21,7 +21,12 @@ export const useLinkStore = defineStore('link', {
         return false;
       }
       const link = await api.links.get(this.link.id);
-      return link.refreshed;
+
+      const accountsStore = useAccountsStore();
+      return (
+        link.refreshedAccounts.includes(accountsStore.outboundAccount?.id || '')
+        && link.refreshedAccounts.includes(accountsStore.inboundAccount?.id || '')
+      );
     },
   },
 });
