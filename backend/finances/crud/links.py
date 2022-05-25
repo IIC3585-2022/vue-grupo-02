@@ -32,11 +32,12 @@ def create(db: Session, link_schema: LinkCreatedWebhookSchema) -> str:
     return link
 
 
-def refreshed(
+def account_refreshed(
     db: Session,
     link: LinkModel,
+    account_id: str,
 ) -> LinkModel:
-    link.refreshed = True
+    link.refreshed_accounts.append(account_id)
     db.add(link)
     db.commit()
     db.refresh(link)

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Response
 from sqlalchemy.orm import Session
 
 import finances.crud.links as links_crud
-import finances.schemas.link as link_schemas
+import finances.schemas.accounts as accounts_schemas
 from finances import deps
 from finances.middleware.webhooks import (
     require_signature_validation,
@@ -14,14 +14,14 @@ router = APIRouter()
 
 
 @router.post(
-    "/links/refreshed",
+    "/account/refreshed",
     dependencies=[
         Depends(require_timestamp_validation),
         Depends(require_signature_validation),
     ],
 )
 def link_refreshed(
-    content: link_schemas.LinkRefreshedWebhook,
+    content: accounts_schemas.AccountRefreshedWebhook,
     db: Session = Depends(deps.get_db),
 ) -> Response:
     link = links_crud.get_by_fintoc_id(db, content.data.refreshed_object_id)
