@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import {
-  computed, onMounted, ref, watch,
+  computed, onMounted, watch,
 } from 'vue';
 import { useMovementsStore } from '@/stores/movements';
-import { Nullable } from '@/interfaces/common';
 import LoadingScreen from '@/components/LoadingScreen.vue';
 import LineChart from '@/components/LineChart.vue';
 
 const movementsStore = useMovementsStore();
-
-const chartRef = ref<Nullable<InstanceType<typeof LineChart>>>(null);
 
 const inboundMovements = computed(() => movementsStore.orderedInbound.map((mov) => ({
   amount: mov.amount,
@@ -41,7 +38,6 @@ watch(() => movementsStore.search, () => {
     <div class="d-flex justify-space-around">
       <div class="w-100 d-flex flex-column">
         <LineChart
-          ref="chartRef"
           :key="movementsStore.search"
           :labels="movementsStore.dates"
           inbound-label="Inbound"
