@@ -43,5 +43,6 @@ def refreshed(
     return link
 
 
-def remove(db: Session, link: LinkModel) -> None:
+def delete(db: Session, link: LinkModel) -> None:
     db.delete(link)
+    db.commit()
