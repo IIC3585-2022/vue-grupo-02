@@ -1,5 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import { camelizeKeys } from 'humps';
+import * as api from '@/api';
 import { useAccountsStore } from '@/stores/accounts';
 import type { Link, LinkSnaked } from '@/interfaces/entities/link';
 import type { Nullable } from '@/interfaces/common';
@@ -14,6 +15,13 @@ export const useLinkStore = defineStore('link', {
 
       const accountsStore = useAccountsStore();
       await accountsStore.loadAccounts(this.link.id);
+    },
+    async isRefreshed() {
+      if (!this.link) {
+        return false;
+      }
+      const link = await api.links.get(this.link.id);
+      return link.refreshed;
     },
   },
 });
