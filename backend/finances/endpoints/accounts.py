@@ -10,18 +10,6 @@ from finances.shared.initializers import FINTOC_CLIENT
 router = APIRouter()
 
 
-def format_movement(movement):
-    serialized_mov = movement.serialize()
-    return {
-        "amount": serialized_mov["amount"],
-        "post_date": serialized_mov["post_date"],
-        "description": serialized_mov["description"],
-        "recipient_account": serialized_mov["recipient_account"],
-        "sender_account": serialized_mov["sender_account"],
-        "comment": serialized_mov["comment"],
-    }
-
-
 @router.get("")
 def get_accounts(
     fintoc_id: str,
