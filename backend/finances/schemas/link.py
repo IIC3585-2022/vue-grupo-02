@@ -19,6 +19,4 @@ class LinkCreatedWebhookData(BaseWebhookSchema):
 
 
 class LinkCreatedWebhook(BaseWebhookSchema):
-    type: StrictStr
-    mode: StrictStr
     data: LinkCreatedWebhookData
