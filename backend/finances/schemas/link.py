@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import UUID4, StrictBool, StrictStr
 
@@ -9,7 +9,7 @@ from finances.shared.schemas import BaseSchema
 class LinkResponse(BaseSchema):
     id: UUID4
     fintoc_id: StrictStr
-    refreshed_accounts: List[StrictStr] = []
+    refreshed_accounts: Optional[List[StrictStr]]
 
 
 # Webhook

@@ -23,9 +23,10 @@ export const useLinkStore = defineStore('link', {
       const link = await api.links.get(this.link.id);
 
       const accountsStore = useAccountsStore();
+      const refreshedAccounts = link.refreshedAccounts || [];
       return (
-        link.refreshedAccounts.includes(accountsStore.outboundAccount?.id || '')
-        && link.refreshedAccounts.includes(accountsStore.inboundAccount?.id || '')
+        refreshedAccounts.includes(accountsStore.outboundAccount?.id || '')
+        && refreshedAccounts.includes(accountsStore.inboundAccount?.id || '')
       );
     },
   },
