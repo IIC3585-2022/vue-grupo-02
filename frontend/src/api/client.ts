@@ -4,7 +4,6 @@ import { BASE_API_HOST } from '@/constants';
 
 const client = axios.create({
   baseURL: BASE_API_HOST,
-  timeout: 3000,
   headers: {
     'Content-Type': 'application/json',
   },

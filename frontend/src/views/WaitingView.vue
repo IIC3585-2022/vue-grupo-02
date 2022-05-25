@@ -13,6 +13,8 @@ let interval: Nullable<number> = null;
 const checkIfLinkReady = async () => {
   if (await linkStore.isRefreshed()) {
     router.push({ path: '/dashboard' });
+  } else {
+    router.push({ path: '/dashboard' });
   }
 };
 
