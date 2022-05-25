@@ -9,7 +9,6 @@ from finances.shared.schemas import BaseSchema
 class LinkResponse(BaseSchema):
     id: UUID4
     fintoc_id: StrictStr
-    fintoc_token: StrictStr
     refreshed: StrictBool
 
 

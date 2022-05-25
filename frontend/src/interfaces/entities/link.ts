@@ -6,7 +6,6 @@ import type { Nullable } from '@/interfaces/common';
 export interface BackendLink {
   id: string
   fintocId: string
-  fintocToken: string
   refreshed: boolean
 }
 
