@@ -5,6 +5,7 @@ from finances.config import settings
 from finances.database import engine
 from finances.endpoints.accounts import router as accounts_router
 from finances.endpoints.links import router as links_router
+from finances.endpoints.movements import router as movements_router
 from finances.endpoints.webhooks import router as webhooks_router
 from finances.endpoints.shared import router as shared_router
 from finances.shared.models import BaseModel
@@ -28,6 +29,11 @@ app.include_router(
     accounts_router,
     prefix="/links/{fintoc_id}/accounts",
     tags=["Accounts"],
+)
+app.include_router(
+    movements_router,
+    prefix="/links/{fintoc_id}/movements",
+    tags=["Movements"],
 )
 app.include_router(webhooks_router, prefix="/webhooks", tags=["Webhooks"])
 app.include_router(shared_router, tags=["Shared"])
