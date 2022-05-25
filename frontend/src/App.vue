@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LoadingScreen from '@/components/LoadingScreen.vue';
 import { useHerokuSleepingDyno } from './composables/herokuSleepingDyno';
 
 const { ready } = useHerokuSleepingDyno();
@@ -9,7 +10,7 @@ const { ready } = useHerokuSleepingDyno();
     <v-main>
       <router-view v-if="ready" />
       <template v-else>
-        Loading...
+        <LoadingScreen text="Waiting for the server to start..." />
       </template>
     </v-main>
   </v-app>
