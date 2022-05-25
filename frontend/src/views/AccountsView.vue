@@ -1,19 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useLinkStore } from '@/stores/link';
+import { ref } from 'vue';
+import { useAccountsStore } from '@/stores/accounts';
 
-const linkStore = useLinkStore();
+const accountsStore = useAccountsStore();
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const accounts = computed(() => linkStore.link!.accounts!.map((acc) => ({
-  text: '', // Vuetify has the wrong type declarations for the v-select item
-  title: `${acc.name} ${acc.number}`,
-  value: `${acc.name} ${acc.number}`,
-  return: acc.id,
-})));
+const inboundAccount = ref('');
+const outboundAccount = ref('');
 
 const saveAccounts = () => {
-  console.log('Moving to the next window...');
+  accountsStore.loadUsableAccounts(inboundAccount.value, outboundAccount.value);
 };
 </script>
 
@@ -23,13 +18,15 @@ const saveAccounts = () => {
       <div class="w-100 d-flex flex-column">
         <h2>Select the account receives money</h2>
         <v-select
-          label="Account receives money"
-          :items="accounts"
+          v-model="inboundAccount"
+          label="Account that receives money"
+          :items="accountsStore.allAccountsFormatted"
         />
         <h2>Select the account spends money</h2>
         <v-select
-          label="Account spends money"
-          :items="accounts"
+          v-model="outboundAccount"
+          label="Account that spends money"
+          :items="accountsStore.allAccountsFormatted"
         />
         <v-btn
           size="large"
